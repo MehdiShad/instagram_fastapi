@@ -13,7 +13,7 @@ class UserDisplay(BaseModel):
     email: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PostBase(BaseModel):
@@ -27,7 +27,7 @@ class User(BaseModel):
     username: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PostDisplay(BaseModel):
@@ -39,4 +39,4 @@ class PostDisplay(BaseModel):
     user: User
 
     class Config:
-        orm_mode = True
+        from_attributes = True
