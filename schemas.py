@@ -43,6 +43,9 @@ class PostDisplay(BaseModel):
 
 
 class UserAuth(BaseModel):
-    user_id: int
+    id: int
     username: str
     email: str
+
+    class Config:
+        from_attributes = True
