@@ -16,6 +16,7 @@ class User(Base):
 class Post(Base):
     __tablename__ = "post"
 
+    id = Column(Integer, index=True, primary_key=True)
     image_url = Column(String)
     image_url_type = Column(String)
     caption = Column(String)
