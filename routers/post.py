@@ -3,12 +3,12 @@ import random
 from fastapi import APIRouter, Depends, status, UploadFile, File
 from fastapi.exceptions import HTTPException
 from db import db_post
-from schemas import PostBase, PostDisplay
+from schemas import PostBase, PostDisplay,UserAuth
 from sqlalchemy.orm import Session
 from db.database import get_db
 from typing import List
 from string import ascii_letters
-
+from auth import oauth2
 
 
 router = APIRouter(prefix='/post', tags=['post'])
@@ -17,7 +17,7 @@ image_url_types = ["url", "uploaded"]
 
 
 @router.post(path='/create_post', response_model=PostDisplay)
-def create_post(request: PostBase, db: Session = Depends(get_db)):
+def create_post(request: PostBase, db: Session = Depends(get_db), current_user: UserAuth=Depends(oauth2.get_current_user)):
     if request.image_url_type not in image_url_types:
         return HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
                              detail="image url type should be url or uploaded")
